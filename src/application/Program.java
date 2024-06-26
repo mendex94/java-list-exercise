@@ -28,14 +28,14 @@ public class Program {
 
         System.out.print("Enter the employee id that will have salary increase: ");
         Integer id = sc.nextInt();
-        Employee emp = employeeList.stream().filter(x -> Objects.equals(x.getId(), id)).findFirst().orElse(null);
+        Optional<Employee> emp = employeeList.stream().filter(x -> Objects.equals(x.getId(), id)).findFirst();
 
-        if (emp == null) {
-            System.out.println("This id does not exist!");
-        } else {
+        if (emp.isPresent()) {
             System.out.print("Enter the percentage: ");
             Double percentage = sc.nextDouble();
-            emp.increaseSalary(percentage);
+            emp.get().increaseSalary(percentage);
+        } else {
+            System.out.println("This id does not exist!");
         }
 
         System.out.println();
